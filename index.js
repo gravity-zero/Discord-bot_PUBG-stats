@@ -19,7 +19,8 @@ client.on('message', message => {
     message.channel.send('Boop.');
   }
     else if (message.content === `${config.quest}pubg`) {
-      pubg.getMatchs(["GRAVITY-ZERO", "MUNCHJ"], "steam").then(res => console.log(JSON.stringify(res.data)), message.channel.send(JSON.stringify(res.data)));
+     // pubg.getMatchs(["GRAVITY-ZERO", "MUNCHJ"], "steam").then(res => message.channel.send(JSON.stringify(res.data)));
+     pubg.getMatchs(["GRAVITY-ZERO", "MUNCHJ"], "steam").then((res) => {console.log(JSON.stringify(res.data));message.channel.send(JSON.stringify(res.data))} , (err)=>{message.channel.send(err);});
     }
 });
 client.login(process.env.discordToken);
