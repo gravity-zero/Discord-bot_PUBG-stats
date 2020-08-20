@@ -19,7 +19,7 @@ client.on('message', message => {
     message.channel.send('Boop.');
   }
     else if (message.content === `${config.quest}pubg`) {
-      message.channel.send(pubg, 'blob');
+      pubg.getMatchs(["GRAVITY-ZERO", "MUNCHJ"], "steam").then(res => console.log(JSON.stringify(res.data)), message.channel.send(JSON.stringify(res.data)));
     }
 });
 client.login(process.env.discordToken);

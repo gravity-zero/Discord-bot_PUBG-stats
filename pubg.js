@@ -16,19 +16,13 @@ const ax = axios.create({
 * @param {String} - player name
 * @param {String} - Default pc-eu
 */
-async function getMatchs(players, shards) {
+function getMatchs(players, shards) {
   const url = `${encodeURI(shards)}/players?filter[playerNames]=${encodeURI(players[0])}`;
-  
-  const playersMatch = await ax.get(url)
-    .then(res => JSON.stringify(res.data))
-    .catch(err => {console.log(err, "HOHO")
-    return err;
-    })
-    console.log(playersMatch)
-  return playersMatch;
-}
-getMatchs(["GRAVITY-ZERO", "MUNCHJ"], "steam");
-console.log(getMatchs);
+  return ax.get(url)
+  }
+
+//getMatchs(["GRAVITY-ZERO", "MUNCHJ"], "steam");
+
 
 async function getPlayerMatchData(matchId, shards = "steam") {
 
