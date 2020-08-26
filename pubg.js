@@ -19,14 +19,23 @@ const ax = axios.create({
 function getMatchs(players, shards) {
   const url = `${encodeURI(shards)}/players?filter[playerNames]=${encodeURI(players[0])}`;
   return ax.get(url)
+   .then((res) => {
+     console.log(res.data.data[0].relationships.matches.data[0].id)
+      //res.data.data.forEach(data => {console.log(data.relationships.matches.data[0].id)})
+     let matchId = res.data.data[0].relationships.matches.data[0].id;
+     console.log(matchId)
+    })
   }
 
-//getMatchs(["GRAVITY-ZERO", "MUNCHJ"], "steam");
+  getMatchs(["GRAVITY-ZERO", "MUNCHJ_"], "steam");
+  
 
 
-async function getPlayerMatchData(matchId, shards = "steam") {
+function getPlayerMatchData(matchId, shards = "steam") {
 
 }
+
+var response 
 
 module.exports = {
   getMatchs/*,
