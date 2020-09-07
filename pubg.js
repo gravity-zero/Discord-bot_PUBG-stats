@@ -1,5 +1,7 @@
 const axios = require("axios");
+const discord = require('./bot.js');
 require("dotenv").config();
+playerName = discord.arr;
 
 const ax = axios.create({
 	baseURL: "https://api.playbattlegrounds.com/shards/",
@@ -11,32 +13,27 @@ const ax = axios.create({
 	},
 });
 
-function getMatchs(players, shards = "steam") {
-	const url = `${encodeURI(shards)}/players?filter[playerNames]=${encodeURI(players[0])}`;
+/*Get ID of the Last Match Player*/
+function getMatchs(playerName, shards = "steam") {
+  console.log("1",playerName);
+	const url = `${encodeURI(shards)}/players?filter[playerNames]=${encodeURI(playerName[0])}`;
 	return ax.get(url);
-	/*.then((res) => {
-     //console.log(res.data.data[0].relationships.matches.data[0].id)
-      //res.data.data.forEach(data => {console.log(data.relationships.matches.data[0].id)})
-    
-    matchId = res.data.data[0].relationships.matches.data[0].id;
-     console.log(matchId)
-
-    })*/
 }
 
-function getPlayerMatchData(shards) {
+/*Get stats by ID Match & Select the Player by ID*/
+function getPlayerMatchData(playerName, shards) {
   return new Promise((resolve, reject) => {
-	id = getMatchs(["GRAVITY-ZERO", "MUNCHJ_"]).then((res) => {
-  let matchId = res.data.data[0].relationships.matches.data[0].id;
-	
-
-		const url = `${encodeURI(shards)}/matches/${encodeURI(matchId)}`;
-		ax.get(url).then((response)=>{
-      resolve({response:response, playerId:res.data.data[0].id})
-  });
-})
-})}
-//getPlayerMatchData("steam");
+    
+	  id = getMatchs(playerName).then((res) => { 
+      let matchId = res.data.data[0].relationships.matches.data[0].id;
+      const url = `${encodeURI(shards)}/matches/${encodeURI(matchId)}`;
+  
+	    ax.get(url).then((response)=>{
+        resolve({response:response, playerId:res.data.data[0].id})
+      });
+    });
+  },
+)};
 
 module.exports = {
 	getMatchs,
